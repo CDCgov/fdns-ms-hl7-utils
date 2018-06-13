@@ -1,0 +1,16 @@
+version: '3'
+services:
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+  fluentd:
+    image: fluent/fluentd
+    ports:
+      - "24224:24224"
+  fdns-ms-object:
+    image: fdns-ms-object
+    ports:
+      - "8083:8083"
+    environment:
+      OBJECT_PORT: 8083

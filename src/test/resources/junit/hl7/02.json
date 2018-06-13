@@ -1,0 +1,250 @@
+{
+  "PII": {
+    "checked": false
+  },
+  "extractor": {
+    "version": "0.0.9",
+    "hash": "550c47d425e657a489eb9118f2965986",
+    "UCID": {
+      "id": "",
+      "hash": "",
+      "segments": {
+        "77993-4": "",
+        "77968-6": "",
+        "77969-4": "",
+        "77979-3": ""
+      }
+    },
+    "timestamp": 1528910774243
+  },
+  "message": {
+    "HL7": {
+      "source": {
+        "ORU_R01": {
+          "ORU_R01-RESPONSE": {
+            "ORU_R01-ORDER_OBSERVATION": {
+              "ORU_R01-OBSERVATION": [
+                {
+                  "OBX": {
+                    "OBX-8": "\"\"",
+                    "OBX-1": "1",
+                    "OBX-11": "F",
+                    "OBX-2": "NM",
+                    "OBX-14": {
+                      "TS-1": "20080511103500"
+                    },
+                    "OBX-3": {
+                      "CE-2": "HDL Cholesterol (CAD)",
+                      "CE-1": "JHDL"
+                    },
+                    "OBX-4": "1",
+                    "OBX-5": "62",
+                    "OBX-6": {
+                      "CE-2": "mg/dL",
+                      "CE-1": "CD:289"
+                    },
+                    "OBX-7": ">40",
+                    "OBX-17": {
+                      "CE-4": "\"\""
+                    },
+                    "OBX-10": "\"\""
+                  }
+                },
+                {
+                  "OBX": {
+                    "OBX-8": "\"\"",
+                    "OBX-1": "2",
+                    "OBX-11": "F",
+                    "OBX-2": "NM",
+                    "OBX-14": {
+                      "TS-1": "20080511103500"
+                    },
+                    "OBX-3": {
+                      "CE-2": "Triglyceride (CAD)",
+                      "CE-1": "JTRIG"
+                    },
+                    "OBX-4": "1",
+                    "OBX-5": "72",
+                    "OBX-6": {
+                      "CE-2": "mg/dL",
+                      "CE-1": "CD:289"
+                    },
+                    "OBX-7": "35-150",
+                    "OBX-17": {
+                      "CE-4": "\"\""
+                    },
+                    "OBX-10": "\"\""
+                  }
+                },
+                {
+                  "OBX": {
+                    "OBX-1": "3",
+                    "OBX-11": "F",
+                    "OBX-2": "NM",
+                    "OBX-14": {
+                      "TS-1": "20080511103500"
+                    },
+                    "OBX-3": {
+                      "CE-2": "VLDL-C (calc - CAD)",
+                      "CE-1": "JVLDL"
+                    },
+                    "OBX-4": "1",
+                    "OBX-5": "14",
+                    "OBX-6": {
+                      "CE-2": "mg/dL",
+                      "CE-1": "CD:289"
+                    },
+                    "OBX-17": {
+                      "CE-4": "\"\""
+                    },
+                    "OBX-8": "\"\"",
+                    "OBX-10": "\"\""
+                  }
+                },
+                {
+                  "OBX": {
+                    "OBX-8": "H",
+                    "OBX-1": "4",
+                    "OBX-11": "F",
+                    "OBX-2": "NM",
+                    "OBX-14": {
+                      "TS-1": "20080511103500"
+                    },
+                    "OBX-3": {
+                      "CE-2": "LDL-C (calc - CAD)",
+                      "CE-1": "JLDL"
+                    },
+                    "OBX-4": "1",
+                    "OBX-5": "134",
+                    "OBX-6": {
+                      "CE-2": "mg/dL",
+                      "CE-1": "CD:289"
+                    },
+                    "OBX-7": "0-100",
+                    "OBX-17": {
+                      "CE-4": "\"\""
+                    },
+                    "OBX-10": "\"\""
+                  }
+                },
+                {
+                  "OBX": {
+                    "OBX-8": "H",
+                    "OBX-1": "5",
+                    "OBX-11": "F",
+                    "OBX-2": "NM",
+                    "OBX-14": {
+                      "TS-1": "20080511103500"
+                    },
+                    "OBX-3": {
+                      "CE-2": "Cholesterol (CAD)",
+                      "CE-1": "JCHO"
+                    },
+                    "OBX-4": "1",
+                    "OBX-5": "210",
+                    "OBX-6": {
+                      "CE-2": "mg/dL",
+                      "CE-1": "CD:289"
+                    },
+                    "OBX-7": "90-200",
+                    "OBX-17": {
+                      "CE-4": "\"\""
+                    },
+                    "OBX-10": "\"\""
+                  }
+                }
+              ],
+              "OBR": {
+                "OBR-16": {
+                  "XCN-1": "1694",
+                  "XCN-5": "MD",
+                  "XCN-3": "DOCFIRST",
+                  "XCN-2": "DOCLAST"
+                },
+                "OBR-22": {
+                  "TS-1": "20080511103529"
+                },
+                "OBR-1": "1",
+                "OBR-3": [
+                  {
+                    "EI-1": "185L29839X64489JLPF"
+                  },
+                  {
+                    "EI-1": "X64489",
+                    "EI-2": "ACC_NUM"
+                  }
+                ],
+                "OBR-4": {
+                  "CE-2": "Lipid Panel - C",
+                  "CE-1": "JLPF"
+                }
+              }
+            },
+            "ORU_R01-PATIENT": {
+              "PID": {
+                "PID-1": "1",
+                "PID-3": {
+                  "CX-4": {
+                    "HD-1": "Assigning Authority"
+                  },
+                  "CX-1": "PATIENTID"
+                },
+                "PID-5": {
+                  "XPN-3": "INIT",
+                  "XPN-2": "FIRSTNAME",
+                  "XPN-1": "LASTNAME"
+                },
+                "PID-7": {
+                  "TS-1": "19460101"
+                },
+                "PID-8": "M"
+              },
+              "PD1": {
+                "PD1-4": {
+                  "XCN-1": "IDNUMBER",
+                  "XCN-9": {
+                    "HD-1": "ASSIGNINGAUTHORITY"
+                  },
+                  "XCN-4": "M",
+                  "XCN-3": "PCPFIRST",
+                  "XCN-2": "PCPLAST"
+                },
+                "PD1-1": "1"
+              }
+            }
+          },
+          "MSH": {
+            "MSH-10": "Q335939501T337311002",
+            "MSH-11": {
+              "PT-1": "P"
+            },
+            "MSH-2": "^~\\&",
+            "MSH-12": "2.3",
+            "MSH-1": "|",
+            "MSH-6": {
+              "HD-1": "RECEIVINGFACILITY"
+            },
+            "MSH-5": {
+              "HD-1": "RECEIVINGAPPLICATION"
+            },
+            "MSH-4": {
+              "HD-1": "C"
+            },
+            "MSH-3": {
+              "HD-1": "XXXX"
+            },
+            "MSH-9": {
+              "CM_MSG-1": "ORU",
+              "CM_MSG-2": "R01"
+            },
+            "MSH-7": {
+              "TS-1": "20080511103530"
+            }
+          }
+        }
+      },
+      "version": "2.3"
+    },
+    "type": "HL7"
+  }
+}

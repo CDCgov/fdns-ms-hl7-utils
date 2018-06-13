@@ -1,0 +1,92 @@
+{
+    "pii": {
+        "$or": [
+            {
+                "$and": [
+                    {
+                        "$exists": {
+                            "$..PID-5": true,
+                            "$description": "PID-5",
+                            "$comment": "The message shouldn't contain any information related to the patient name."
+                        }
+                    },
+                    {
+                        "$type": {
+                            "$..PID-5": "Object",
+                            "$description": "PID-5",
+                            "$comment": "The message shouldn't contain any information related to the patient name."
+                        }
+                    }
+                ]
+            },
+            {
+                "$and": [
+                    {
+                        "$exists": {
+                            "$..PID-7": true,
+                            "$description": "PID-7",
+                            "$comment": "The message shouldn't contain any information related to the patient date of birth."
+                        }
+                    },
+                    {
+                        "$type": {
+                            "$..PID-7": "Object",
+                            "$description": "PID-7",
+                            "$comment": "The message shouldn't contain any information related to the patient date of birth."
+                        }
+                    }
+                ]
+            },
+            {
+                "$and": [
+                    {
+                        "$exists": {
+                            "$..PID-8": true,
+                            "$description": "PID-8",
+                            "$comment": "The message shouldn't contain any information related to the patient sex."
+                        }
+                    },
+                    {
+                        "$type": {
+                            "$..PID-8": "Object",
+                            "$description": "PID-8",
+                            "$comment": "The message shouldn't contain any information related to the patient sex."
+                        }
+                    }
+                ]
+            }
+        ]
+    },
+    "warning": {
+        "$or": [
+            {
+                "$not": {
+                    "$description": "PD1-4",
+                    "$comment": "The Patient Primary Care Provider identifier should be a 9 digits value.",
+                    "$regex": {
+                        "$..PD1-4.XCN-1": "\\d{9}"
+                    }
+                }
+            }
+        ]
+    },
+    "error": {
+        "$or": [
+            {
+                "$exists": {
+                    "$description": "MSH-7",
+                    "$comment": "The date/time of the message must be provided.",
+                    "$..MSH-7.TS-1": false
+                }
+            },{
+                "$not": {
+                    "$description": "MSH-7",
+                    "$comment": "The date/time of the message must contain at least the day using the format yyyyMMdd, and optionally the time using the format hhmmss",
+                    "$regex": {
+                        "$..MSH-7.TS-1": "\\d{8}\\d{6}?"
+                    }
+                }
+            }
+        ]
+    }
+}

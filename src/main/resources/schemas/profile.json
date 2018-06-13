@@ -1,0 +1,43 @@
+{
+  "$and": [
+    {
+      "$type": {
+        "$": "Object",
+        "$description": "Check the type of the root item.",
+        "$comment": "The root item must be a JSON Object."
+      }
+    },
+    {
+      "$type": {
+        "$.*": "Object",
+        "$description": "Check the type of each child.",
+        "$comment": "Each child must be a JSON object."
+      }
+    },
+    {
+      "$or": [
+        {
+          "$exists": {
+            "$.pii": true,
+            "$description": "Check if we have a PII rule set.",
+            "$comment": "One of the rule set must be related to PII, warning or error rules."
+          }
+        },
+        {
+          "$exists": {
+            "$.warning": true,
+            "$description": "Check if we have a warning rule set.",
+            "$comment": "One of the rule set must be related to PII, warning or error rules."
+          }
+        },
+        {
+          "$exists": {
+            "$.error": true,
+            "$description": "Check if we have a error rule set.",
+            "$comment": "One of the rule set must be related to PII, warning or error rules."
+          }
+        }
+      ]
+    }
+  ]
+}
