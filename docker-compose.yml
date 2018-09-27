@@ -9,7 +9,7 @@ services:
     ports:
       - "24224:24224"
   fdns-ms-object:
-    image: fdns-ms-object
+    image: cdcgov/fdns-ms-object
     ports:
       - "8083:8083"
     environment:

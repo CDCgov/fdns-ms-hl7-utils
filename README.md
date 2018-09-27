@@ -2,18 +2,18 @@
 This is the repository with the HL7 utilities service to parse, validate and generate sample HL7 data.
 
 ## Running locally
-Please read the following instructions carefully for information on how to build, run and test this microservice in your local environment.
+Carefully read the following instructions for information on how to build, run, and test this microservice in your local environment.
 
 ### Before you start
 You will need to have the following installed before getting up and running locally:
 
 - Docker, [Installation guides](https://docs.docker.com/install/)
 - Docker Compose, [Installation guides](https://docs.docker.com/compose/install/)
-- **Windows Users**: This project uses `Make`, please see [Cygwin](http://www.cygwin.com/) for running commands in this README
+- **Windows Users**: This project uses `Make`. Please use [Cygwin](http://www.cygwin.com/) or the [Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/install-win10) for running the commands in this README
 
 ### Build
 
-First you'll need to build the image, to do so just run the following command:
+First, you'll need to build the image. You can build the image by running the following command:
 
 ```
 make docker-build
@@ -21,7 +21,7 @@ make docker-build
 
 ### Run
 
-Now you'll be able to run the image, you can easily do so by running the following command:
+Once the image has been built, you can run it with the following command:
 
 ```
 make docker-run
@@ -29,7 +29,7 @@ make docker-run
 
 ### Test
 
-To check if the microservice is running, just open the following URL in your browser:
+To check if the microservice is running, open the following URL in your browser:
 
 ```
 http://127.0.0.1:8080/
@@ -37,7 +37,7 @@ http://127.0.0.1:8080/
 
 ### Documentation
 
-To access the Swagger documentation, just open the following URL in your browser:
+To access the Swagger documentation, open the following URL in your browser:
 
 ```
 http://127.0.0.1:8080/swagger-ui.html
@@ -50,7 +50,7 @@ This microservice is designed to be used with other microservices. Please look a
 
 ### OAuth 2 Configuration
 
-This microservice is configurable to be secured with an OAuth 2 provider.
+This microservice is configurable so that it can be secured via an OAuth 2 provider.
 
 __Scopes__: This application uses the following scope: `hl7-utils.*`
 
@@ -84,16 +84,16 @@ copyright interest.
 The repository utilizes code licensed under the terms of the Apache Software
 License and therefore is licensed under ASL v2 or later.
 
-This source code in this repository is free: you can redistribute it and/or modify it under
+The source code in this repository is free: you can redistribute it and/or modify it under
 the terms of the Apache Software License version 2, or (at your option) any
 later version.
 
-This source code in this repository is distributed in the hope that it will be useful, but WITHOUT ANY
+The source code in this repository is distributed in the hope that it will be useful, but WITHOUT ANY
 WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
 PARTICULAR PURPOSE. See the Apache Software License for more details.
 
 You should have received a copy of the Apache Software License along with this
-program. If not, see http://www.apache.org/licenses/LICENSE-2.0.html
+program. If not, see https://www.apache.org/licenses/LICENSE-2.0.html
 
 The source code forked from other open source projects will inherit its license.
 
@@ -111,17 +111,17 @@ and submitting a pull request. (If you are new to GitHub, you might start with a
 [basic tutorial](https://help.github.com/articles/set-up-git).) By contributing
 to this project, you grant a world-wide, royalty-free, perpetual, irrevocable,
 non-exclusive, transferable license to all users under the terms of the
-[Apache Software License v2](http://www.apache.org/licenses/LICENSE-2.0.html) or
+[Apache Software License v2](https://www.apache.org/licenses/LICENSE-2.0.html) or
 later.
 
 All comments, messages, pull requests, and other submissions received through
-CDC including this GitHub page are subject to the [Presidential Records Act](http://www.archives.gov/about/laws/presidential-records.html)
-and may be archived. Learn more at [http://www.cdc.gov/other/privacy.html](http://www.cdc.gov/other/privacy.html).
+CDC including this GitHub page are subject to the [Presidential Records Act](https://www.archives.gov/about/laws/presidential-records.html)
+and may be archived. Learn more at [https://www.cdc.gov/other/privacy.html](https://www.cdc.gov/other/privacy.html).
 
 ## Records
 This repository is not a source of government records, but is a copy to increase
 collaboration and collaborative potential. All government records will be
-published through the [CDC web site](http://www.cdc.gov).
+published through the [CDC web site](https://www.cdc.gov).
 
 ## Notices
 Please refer to [CDC's Template Repository](https://github.com/CDCgov/template)
