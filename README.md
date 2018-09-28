@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/CDCgov/fdns-ms-hl7-utils.svg?branch=master)](https://travis-ci.org/CDCgov/fdns-ms-hl7-utils)
+
 # FDNS HL7 Utilities Microservice
 This is the repository with the HL7 utilities service to parse, validate and generate sample HL7 data.
 

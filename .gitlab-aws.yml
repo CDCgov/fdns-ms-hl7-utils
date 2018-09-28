@@ -1,0 +1,49 @@
+image: docker:stable
+
+services:
+  - docker:dind
+
+variables:
+  DOCKER_DRIVER: overlay2
+  DOCKER_HOST: tcp://localhost:2375
+
+stages:
+  - build
+  - deploy
+  - verify
+
+build:
+  stage: build
+  only:
+    - master
+  before_script:
+    - apk add --no-cache curl jq python py-pip make
+    - pip install awscli docker-compose
+  script:
+    - make docker-build
+    - docker tag $CI_PROJECT_NAME $DOCKER_ORG/$CI_PROJECT_NAME:latest
+    - docker tag $CI_PROJECT_NAME $REPOSITORY_URL/$CI_PROJECT_NAME:$CI_COMMIT_SHA
+    - docker tag $CI_PROJECT_NAME $REPOSITORY_URL/$CI_PROJECT_NAME:latest
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+    - docker push $DOCKER_ORG/$CI_PROJECT_NAME:latest
+    - $(aws ecr get-login --no-include-email --region us-east-1)
+    - docker push $REPOSITORY_URL/$CI_PROJECT_NAME:$CI_COMMIT_SHA
+    - docker push $REPOSITORY_URL/$CI_PROJECT_NAME:latest
+
+deploy:
+  stage: deploy
+  image: roffe/kubectl
+  only:
+    - master
+  before_script:
+    - mkdir -p $HOME/.kube
+    - echo -n $KUBE_CONFIG | base64 -d > $HOME/.kube/config
+  script:
+    - kubectl set image deployment/$CI_PROJECT_NAME $CI_PROJECT_NAME=$DOCKER_ORG/$CI_PROJECT_NAME:latest
+
+verify:
+  stage: verify
+  only:
+    - master
+  script:
+    - wget -qO- $VERIFY_URL
