@@ -54,7 +54,7 @@ button:hover { background: #A7D5FF; outline: none; }
   --header 'Content-Type: text/plain' \
   --header 'Accept: application/json' \
   -d '[YOUR HL7 MESSAGE]' \
-  '<span class='origin'>http://127.0.0.1:8080</span>json?spec=phinms'
+  '<span class='origin'>http://127.0.0.1:8080</span>/api/1.0/json?spec=phinms'
 </code></pre>
 	    <p>You can as well extract automatically the case identifier for the current message (you'll need to specify which specification you follow):</p>
 	    <button class="btn" data-clipboard-target="#curl-cmd-2">Copy</button>
@@ -62,7 +62,7 @@ button:hover { background: #A7D5FF; outline: none; }
   --header 'Content-Type: text/plain' \
   --header 'Accept: application/json' \
   -d '[YOUR HL7 MESSAGE]' \
-  '<span class='origin'>http://127.0.0.1:8080</span>caseId/phinms'
+  '<span class='origin'>http://127.0.0.1:8080</span>/api/1.0/caseId/phinms'
 </code></pre>
     </section>
   </div>
