@@ -1,8 +1,7 @@
 # build stage
-FROM maven:3-jdk-8 as builder
-RUN mkdir -p /usr/src/app
+FROM cdcgov/maven:fdns as builder
+
 COPY . /usr/src/app
-WORKDIR /usr/src/app
 RUN mvn clean package
 
 # run stage
