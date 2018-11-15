@@ -1,0 +1,35 @@
+version: '3.1'
+services:
+  fluentd:
+    image: fluent/fluentd
+    ports:
+      - "24224:24224"
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+  fdns-ms-object:
+    image: cdcgov/fdns-ms-object
+    ports:
+      - "8083:8083"
+    depends_on:
+      - fluentd
+      - mongo
+    environment:
+      OBJECT_PORT: 8083
+      OBJECT_MONGO_HOST: mongo
+      OBJECT_MONGO_PORT: 27017
+      OBJECT_FLUENTD_HOST: fluentd
+      OBJECT_FLUENTD_PORT: 24224
+  fdns-ms-hl7-utils:
+    image: cdcgov/fdns-ms-hl7-utils
+    ports:
+      - "8080:8080"
+    depends_on:
+      - fluentd
+      - fdns-ms-object
+    environment:
+      HL7_UTILS_PORT: 8080
+      OBJECT_URL: http://fdns-ms-object:8083
+      HL7_UTILS_FLUENTD_HOST: fluentd
+      HL7_UTILS_FLUENTD_PORT: 24224
