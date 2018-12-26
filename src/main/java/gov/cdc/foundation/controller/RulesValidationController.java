@@ -51,13 +51,23 @@ public class RulesValidationController {
 	private String profileRegex;
 	private String profileSchemaPath;
 
-	public RulesValidationController(@Value("${profile.regex}") String profileRegex, @Value("${profile.schema.path}") String profileSchemaPath) {
+	public RulesValidationController(
+		@Value("${profile.regex}") String profileRegex,
+		@Value("${profile.schema.path}"
+	) String profileSchemaPath) {
 		this.profileRegex = profileRegex;
 		this.profileSchemaPath = profileSchemaPath;
 	}
 
-	@RequestMapping(value = "schema", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	@ApiOperation(value = "Get rules schema", notes = "Get rules schema")
+	@RequestMapping(
+		value = "schema",
+		method = RequestMethod.GET,
+		produces = MediaType.APPLICATION_JSON_VALUE
+	)
+	@ApiOperation(
+		value = "Get rules schema",
+		notes = "Get rules schema"
+	)
 	@ResponseBody
 	public ResponseEntity<?> getRulesSchema() {
 		ObjectMapper mapper = new ObjectMapper();
@@ -78,8 +88,15 @@ public class RulesValidationController {
 		}
 	}
 
-	@RequestMapping(value = "check", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	@ApiOperation(value = "Check rules against the schema", notes = "Check rules against the schema")
+	@RequestMapping(
+		value = "check",
+		method = RequestMethod.POST,
+		produces = MediaType.APPLICATION_JSON_VALUE
+	)
+	@ApiOperation(
+		value = "Check rules against the schema",
+		notes = "Check rules against the schema"
+	)
 	@ResponseBody
 	public ResponseEntity<?> checkRulesSyntax(@RequestBody(required = true) String payload) {
 
@@ -124,28 +141,58 @@ public class RulesValidationController {
 
 	}
 
-	@PreAuthorize("!@authz.isSecured() or #oauth2.hasScope('hl7-utils:'.concat(#profile))")
-	@RequestMapping(value = "{profile}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
-	@ApiOperation(value = "Create or update rules for the specified profile", notes = "Create or update rules")
+	@PreAuthorize(
+		"!@authz.isSecured()"
+		+ " or #oauth2.hasScope('fdns.hl7-utils.'.concat(#profile).concat('.create'))"
+		+ " or #oauth2.hasScope('fdns.hl7-utils.'.concat(#profile).concat('.update'))"
+		+ " or #oauth2.hasScope('fdns.hl7-utils.'.concat(#profile).concat('.*'))"
+		+ " or #oauth2.hasScope('fdns.hl7-utils.*.create')"
+		+ " or #oauth2.hasScope('fdns.hl7-utils.*.update')"
+		+ " or #oauth2.hasScope('fdns.hl7-utils.*.*')"
+	)
+	@RequestMapping(
+		value = "{profile}",
+		method = RequestMethod.PUT,
+		produces = MediaType.APPLICATION_JSON_VALUE
+	)
+	@ApiOperation(
+		value = "Create or update rules for the specified profile",
+		notes = "Create or update rules"
+	)
 	@ResponseBody
 	public ResponseEntity<?> upsertRulesWithPut(
-			@ApiIgnore @RequestHeader(value = "Authorization", required = false) String authorizationHeader,
-			@RequestBody(required = true) String payload, 
-			@ApiParam(value = "Profile identifier") @PathVariable(value = "profile") String profile) {
+		@ApiIgnore @RequestHeader(value = "Authorization", required = false) String authorizationHeader,
+		@RequestBody(required = true) String payload, 
+		@ApiParam(value = "Profile identifier") @PathVariable(value = "profile") String profile
+	) {
 		return upsertRules(authorizationHeader, payload, profile);
 	}
 
-	@PreAuthorize("!@authz.isSecured() or #oauth2.hasScope('hl7-utils:'.concat(#profile))")
-	@RequestMapping(value = "{profile}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	@ApiOperation(value = "Create or update rules for the specified profile", notes = "Create or update rules")
+	@PreAuthorize(
+		"!@authz.isSecured()"
+		+ " or #oauth2.hasScope('fdns.hl7-utils.'.concat(#profile).concat('.create'))"
+		+ " or #oauth2.hasScope('fdns.hl7-utils.'.concat(#profile).concat('.update'))"
+		+ " or #oauth2.hasScope('fdns.hl7-utils.'.concat(#profile).concat('.*'))"
+		+ " or #oauth2.hasScope('fdns.hl7-utils.*.create')"
+		+ " or #oauth2.hasScope('fdns.hl7-utils.*.update')"
+		+ " or #oauth2.hasScope('fdns.hl7-utils.*.*')"
+	)
+	@RequestMapping(
+		value = "{profile}",
+		method = RequestMethod.POST,
+		produces = MediaType.APPLICATION_JSON_VALUE
+	)
+	@ApiOperation(
+		value = "Create or update rules for the specified profile",
+		notes = "Create or update rules"
+	)
 	@ResponseBody
 	public ResponseEntity<?> upsertRules(
-			@ApiIgnore @RequestHeader(value = "Authorization", required = false) String authorizationHeader,
-			@RequestBody(required = true) String payload, 
-			@ApiParam(value = "Profile identifier") @PathVariable(value = "profile") String profile) {
-
+		@ApiIgnore @RequestHeader(value = "Authorization", required = false) String authorizationHeader,
+		@RequestBody(required = true) String payload, 
+		@ApiParam(value = "Profile identifier") @PathVariable(value = "profile") String profile
+	) {
 		ObjectMapper mapper = new ObjectMapper();
-
 		Map<String, Object> log = new HashMap<>();
 		log.put(MessageHelper.CONST_METHOD, MessageHelper.METHOD_UPSERTRULES);
 
@@ -188,17 +235,29 @@ public class RulesValidationController {
 
 	}
 
-	@PreAuthorize("!@authz.isSecured() or #oauth2.hasScope('hl7-utils:'.concat(#profile))")
-	@RequestMapping(value = "{profile}/{ruleset}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	@ApiOperation(value = "Get saved rules for the specified profile", notes = "Get saved rules")
+	@PreAuthorize(
+		"!@authz.isSecured()"
+		+ " or #oauth2.hasScope('fdns.hl7-utils.'.concat(#profile).concat('.read'))"
+		+ " or #oauth2.hasScope('fdns.hl7-utils.'.concat(#profile).concat('.*'))"
+		+ " or #oauth2.hasScope('fdns.hl7-utils.*.read')"
+		+ " or #oauth2.hasScope('fdns.hl7-utils.*.*')"
+	)
+	@RequestMapping(
+		value = "{profile}/{ruleset}",
+		method = RequestMethod.GET,
+		produces = MediaType.APPLICATION_JSON_VALUE
+	)
+	@ApiOperation(
+		value = "Get saved rules for the specified profile",
+		notes = "Get saved rules"
+	)
 	@ResponseBody
 	public ResponseEntity<?> getRules(
-			@ApiIgnore @RequestHeader(value = "Authorization", required = false) String authorizationHeader,
-			@ApiParam(value = "Profile identifier") @PathVariable(value = "profile") String profile, 
-			@ApiParam(value = "Rule Set (such as `pii`, `warning` or `error`)") @PathVariable(value = "ruleset") String ruleset) {
-
+		@ApiIgnore @RequestHeader(value = "Authorization", required = false) String authorizationHeader,
+		@ApiParam(value = "Profile identifier") @PathVariable(value = "profile") String profile, 
+		@ApiParam(value = "Rule Set (such as `pii`, `warning` or `error`)") @PathVariable(value = "ruleset") String ruleset
+	) {
 		ObjectMapper mapper = new ObjectMapper();
-
 		Map<String, Object> log = new HashMap<>();
 		log.put(MessageHelper.CONST_METHOD, MessageHelper.METHOD_GETRULES);
 
@@ -221,15 +280,27 @@ public class RulesValidationController {
 
 	}
 
-	@PreAuthorize("!@authz.isSecured() or #oauth2.hasScope('hl7-utils:'.concat(#profile))")
-	@RequestMapping(value = "validate/{profile}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.TEXT_PLAIN_VALUE)
+	@PreAuthorize(
+		"!@authz.isSecured()"
+		+ " or #oauth2.hasScope('fdns.hl7-utils.'.concat(#profile).concat('.read'))"
+		+ " or #oauth2.hasScope('fdns.hl7-utils.'.concat(#profile).concat('.*'))"
+		+ " or #oauth2.hasScope('fdns.hl7-utils.*.read')"
+		+ " or #oauth2.hasScope('fdns.hl7-utils.*.*')"
+	)
+	@RequestMapping(
+		value = "validate/{profile}",
+		method = RequestMethod.POST,
+		produces = MediaType.APPLICATION_JSON_VALUE,
+		consumes = MediaType.TEXT_PLAIN_VALUE
+	)
 	@ApiOperation(value = "Validate HL7 message", notes = "Valides an HL7 message using JSON rules.")
 	@ResponseBody
 	public ResponseEntity<?> validate(
-			@ApiIgnore @RequestHeader(value = "Authorization", required = false) String authorizationHeader,
-			@RequestBody(required = true) String payload, 
-			@ApiParam(value = "Profile identifier") @PathVariable(value = "profile") String profile, 
-			@RequestParam(defaultValue = "false") boolean explain, @RequestParam(defaultValue = "false") boolean checkPII) {
+		@ApiIgnore @RequestHeader(value = "Authorization", required = false) String authorizationHeader,
+		@RequestBody(required = true) String payload, 
+		@ApiParam(value = "Profile identifier") @PathVariable(value = "profile") String profile, 
+		@RequestParam(defaultValue = "false") boolean explain, @RequestParam(defaultValue = "false") boolean checkPII
+	) {
 		ObjectMapper mapper = new ObjectMapper();
 
 		Map<String, Object> log = new HashMap<>();
@@ -252,10 +323,26 @@ public class RulesValidationController {
 			statusObj.put("PII", json.get("PII"));
 
 			// Let's check the warnings
-			int nbOfWarnings = checkValidationRules(authorizationHeader, json, statusObj, profile, MessageHelper.CONST_WARNING, explain, explainationDetails);
+			int nbOfWarnings = checkValidationRules(
+				authorizationHeader,
+				json,
+				statusObj,
+				profile,
+				MessageHelper.CONST_WARNING,
+				explain,
+				explainationDetails
+			);
 
 			// Let's check the errors
-			int nbOfErrors = checkValidationRules(authorizationHeader, json, statusObj, profile, MessageHelper.CONST_ERROR, explain, explainationDetails);
+			int nbOfErrors = checkValidationRules(
+				authorizationHeader,
+				json,
+				statusObj,
+				profile,
+				MessageHelper.CONST_ERROR,
+				explain,
+				explainationDetails
+			);
 
 			responseObj.put(MessageHelper.CONST_VALID, nbOfErrors == 0);
 			responseObj.put("errors", nbOfErrors);
@@ -280,12 +367,20 @@ public class RulesValidationController {
 		}
 	}
 
-	private int checkValidationRules(String authorizationHeader, JSONObject payload, JSONObject statusObj, String profile, String ruleSet, boolean explain, JSONArray explainationDetails) throws ServiceException, ValidatorException {
+	private int checkValidationRules(
+		String authorizationHeader,
+		JSONObject payload,
+		JSONObject statusObj,
+		String profile,
+		String ruleSet,
+		boolean explain,
+		JSONArray explainationDetails
+	) throws ServiceException, ValidatorException {
 		int nbOfInvalidItems = 0;
-
 		JSONObject status = new JSONObject();
 		status.put(MessageHelper.CONST_CHECKED, true);
 		JSONObject rules = null;
+
 		try {
 			rules = ObjectHelper.getInstance(authorizationHeader).getObject(profile + "_" + ruleSet);
 			rules.remove("_id");
@@ -322,7 +417,11 @@ public class RulesValidationController {
 		return detail;
 	}
 
-	private List<ValidationResult> executeRules(JSONObject payload, JSONObject rules, JSONObject status) throws ServiceException, ValidatorException {
+	private List<ValidationResult> executeRules(
+		JSONObject payload,
+		JSONObject rules,
+		JSONObject status
+	) throws ServiceException, ValidatorException {
 		List<ValidationResult> checkList = null;
 		if (rules != null) {
 			status.put(MessageHelper.CONST_FOUNDPROFILE, true);

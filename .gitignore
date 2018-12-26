@@ -38,3 +38,4 @@ dump.rdb
 transaction-logs
 docker-build-local.sh
 *.tar
+.vscode
