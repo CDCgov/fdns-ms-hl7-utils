@@ -15,7 +15,6 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
-import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,27 +85,50 @@ public class HL7Controller {
 		}
 	}
 	
-	@RequestMapping(value = "json", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.TEXT_PLAIN_VALUE)
-	@ApiOperation(value = "Transform HL7 to JSON", notes = "Transforms an HL7 message to JSON object.")
+	@RequestMapping(
+		value = "json",
+		method = RequestMethod.POST,
+		produces = MediaType.APPLICATION_JSON_VALUE,
+		consumes = MediaType.TEXT_PLAIN_VALUE
+	)
+	@ApiOperation(
+		value = "Transform HL7 to JSON",
+		notes = "Transforms an HL7 message to JSON object."
+	)
 	@ResponseBody
 	public ResponseEntity<?> transformHL7toJSON(
-			@ApiIgnore @RequestHeader(value = "Authorization", required = false) String authorizationHeader,
-			@RequestBody(required = true) String message, 
-			@ApiParam(value = "Spec (HL7 or PHIN)", allowableValues = "hl7,phinms") @RequestParam(value = "spec", required = false) String spec) {
+		@ApiIgnore @RequestHeader(value = "Authorization", required = false) String authorizationHeader,
+		@RequestBody(required = true) String message, 
+		@ApiParam(value = "Spec (HL7 or PHIN)", allowableValues = "hl7,phinms") @RequestParam(value = "spec", required = false) String spec
+	) {
 		return transformHL7toJSON(authorizationHeader, message, spec, null);
 	}
 
-	@PreAuthorize("!@authz.isSecured() or #oauth2.hasScope('hl7-utils:'.concat(#profile))")
-	@RequestMapping(value = "json/{profile}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.TEXT_PLAIN_VALUE)
-	@ApiOperation(value = "Transform HL7 to JSON", notes = "Transforms an HL7 message to JSON object using a profile.")
+	@PreAuthorize(
+		"!@authz.isSecured()"
+		+ " or #oauth2.hasScope('fdns.hl7-utils.'.concat(#profile).concat('.read'))"
+		+ " or #oauth2.hasScope('fdns.hl7-utils.'.concat(#profile).concat('.*'))"
+		+ " or #oauth2.hasScope('fdns.hl7-utils.*.read')"
+		+ " or #oauth2.hasScope('fdns.hl7-utils.*.*')"
+	)
+	@RequestMapping(
+		value = "json/{profile}",
+		method = RequestMethod.POST,
+		produces = MediaType.APPLICATION_JSON_VALUE,
+		consumes = MediaType.TEXT_PLAIN_VALUE
+	)
+	@ApiOperation(
+		value = "Transform HL7 to JSON",
+		notes = "Transforms an HL7 message to JSON object using a profile."
+	)
 	@ResponseBody
 	public ResponseEntity<?> transformHL7toJSON(
-			@ApiIgnore @RequestHeader(value = "Authorization", required = false) String authorizationHeader,
-			@RequestBody(required = true) String message, 
-			@ApiParam(value = "Spec (HL7 or PHIN)", allowableValues = "hl7,phinms") @RequestParam(value = "spec", required = false) String spec, 
-			@ApiParam(value = "Profile identifier") @PathVariable(value = "profile") String profile) {
+		@ApiIgnore @RequestHeader(value = "Authorization", required = false) String authorizationHeader,
+		@RequestBody(required = true) String message, 
+		@ApiParam(value = "Spec (HL7 or PHIN)", allowableValues = "hl7,phinms") @RequestParam(value = "spec", required = false) String spec, 
+		@ApiParam(value = "Profile identifier") @PathVariable(value = "profile") String profile
+	) {
 		ObjectMapper mapper = new ObjectMapper();
-
 		Map<String, Object> log = new HashMap<>();
 		log.put(MessageHelper.CONST_METHOD, MessageHelper.METHOD_TRANSFORMHL7TOJSON);
 		log.put(MessageHelper.CONST_PROFILE, profile);
@@ -137,12 +159,24 @@ public class HL7Controller {
 		}
 	}
 
-	@RequestMapping(value = "caseId/{spec}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.TEXT_PLAIN_VALUE)
-	@ApiOperation(value = "Get case identifier", notes = "Get case identifier")
+	@RequestMapping(
+		value = "caseId/{spec}",
+		method = RequestMethod.POST,
+		produces = MediaType.APPLICATION_JSON_VALUE,
+		consumes = MediaType.TEXT_PLAIN_VALUE
+	)
+	@ApiOperation(
+		value = "Get case identifier",
+		notes = "Get case identifier"
+	)
 	@ResponseBody
-	public ResponseEntity<?> getCaseIdentifier(@RequestBody(required = true) String message, @ApiParam(value = "Spec (HL7 or PHIN)", allowableValues = "hl7,phinms", required = true) @PathVariable(value = "spec") String spec) {
+	public ResponseEntity<?> getCaseIdentifier(
+		@RequestBody(required = true) String message,
+		@ApiParam(value = "Spec (HL7 or PHIN)",
+		allowableValues = "hl7,phinms",
+		required = true) @PathVariable(value = "spec") String spec
+	) {
 		ObjectMapper mapper = new ObjectMapper();
-
 		Map<String, Object> log = new HashMap<>();
 		log.put(MessageHelper.CONST_METHOD, MessageHelper.METHOD_GETCASEIDENTIFIER);
 
@@ -156,8 +190,16 @@ public class HL7Controller {
 		}
 	}
 
-	@RequestMapping(value = "hash", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.TEXT_PLAIN_VALUE)
-	@ApiOperation(value = "Get message hash", notes = "Get message hash")
+	@RequestMapping(
+		value = "hash",
+		method = RequestMethod.POST,
+		produces = MediaType.APPLICATION_JSON_VALUE,
+		consumes = MediaType.TEXT_PLAIN_VALUE
+	)
+	@ApiOperation(
+		value = "Get message hash",
+		notes = "Get message hash"
+	)
 	@ResponseBody
 	public ResponseEntity<?> getMessageHash(@RequestBody(required = true) String message) {
 		ObjectMapper mapper = new ObjectMapper();
@@ -180,11 +222,19 @@ public class HL7Controller {
 		}
 	}
 
-	@RequestMapping(value = "xml", method = RequestMethod.POST, produces = MediaType.APPLICATION_XML_VALUE)
-	@ApiOperation(value = "Transform HL7 to XML", notes = "Transforms an HL7 message to XML document.")
+	@RequestMapping(
+		value = "xml",
+		method = RequestMethod.POST,
+		produces = MediaType.APPLICATION_XML_VALUE
+	)
+	@ApiOperation(
+		value = "Transform HL7 to XML",
+		notes = "Transforms an HL7 message to XML document."
+	)
 	@ResponseBody
-	public ResponseEntity<?> transformHL7toXML(@RequestBody(required = true) String message) throws HL7Exception {
-
+	public ResponseEntity<?> transformHL7toXML(
+		@RequestBody(required = true) String message
+	) throws HL7Exception {
 		Map<String, Object> log = new HashMap<>();
 		log.put(MessageHelper.CONST_METHOD, MessageHelper.METHOD_TRANSFORMHL7TOXML);
 
@@ -232,11 +282,17 @@ public class HL7Controller {
 		}
 	}
 
-	@RequestMapping(value = "generate", method = RequestMethod.GET, produces = MediaType.TEXT_PLAIN_VALUE)
-	@ApiOperation(value = "Generate random HL7 message", notes = "Generate random HL7 message.")
+	@RequestMapping(
+		value = "generate",
+		method = RequestMethod.GET,
+		produces = MediaType.TEXT_PLAIN_VALUE
+	)
+	@ApiOperation(
+		value = "Generate random HL7 message",
+		notes = "Generate random HL7 message."
+	)
 	@ResponseBody
 	public ResponseEntity<?> generate() {
-
 		Map<String, Object> log = new HashMap<>();
 		log.put(MessageHelper.CONST_METHOD, MessageHelper.METHOD_GENERATE);
 

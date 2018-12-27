@@ -58,7 +58,7 @@ This microservice is designed to be used with other microservices. Please look a
 
 This microservice is configurable so that it can be secured via an OAuth 2 provider.
 
-__Scopes__: This application uses the following scope: `hl7-utils.*`
+__Scopes__: This application uses the following scope: `fdns.hl7-utils.{profile}.{create|read|update|delete}`. Example: `fdns.hl7-utils.myprofile.read`
 
 Please see the following environment variables for configuring with your OAuth 2 provider:
 
