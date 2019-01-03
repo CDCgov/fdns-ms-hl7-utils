@@ -1,4 +1,5 @@
 docker-build:
+	docker-compose pull
 	docker-compose up -d
 	docker build \
 		-t fdns-ms-hl7-utils \
