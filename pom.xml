@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>gov.cdc</groupId>
 	<artifactId>fdns-ms-hl7-utils</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 	<packaging>jar</packaging>
 
 	<name>FDNS HL7 Utilities Microservice</name>
@@ -219,7 +219,7 @@
 		<dependency>
 			<groupId>gov.cdc</groupId>
 			<artifactId>fdns-java-sdk</artifactId>
-			<version>1.0.2</version>
+			<version>1.0.4</version>
 		</dependency>
 
 		<!-- dependency overrides from the dependency tree to fix vulnerabilities -->

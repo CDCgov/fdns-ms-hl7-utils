@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 import org.json.JSONArray;
@@ -68,6 +70,13 @@ public class RulesValidationController {
 		value = "Get rules schema",
 		notes = "Get rules schema"
 	)
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Returns rules schema in json object"),
+			@ApiResponse(code = 400, message = "Route parameters or json payload contain invalid data"),
+			@ApiResponse(code = 401, message = "HTTP header lacks valid OAuth2 token"),
+			@ApiResponse(code = 403, message = "HTTP header has valid OAuth2 token but lacks the appropriate scope to use this route"),
+			@ApiResponse(code = 404, message = "Not Found"),
+	})
 	@ResponseBody
 	public ResponseEntity<?> getRulesSchema() {
 		ObjectMapper mapper = new ObjectMapper();
@@ -97,6 +106,14 @@ public class RulesValidationController {
 		value = "Check rules against the schema",
 		notes = "Check rules against the schema"
 	)
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Returns validation results in json object"),
+			@ApiResponse(code = 400, message = "Route parameters or json payload contain invalid data"),
+			@ApiResponse(code = 401, message = "HTTP header lacks valid OAuth2 token"),
+			@ApiResponse(code = 403, message = "HTTP header has valid OAuth2 token but lacks the appropriate scope to use this route"),
+			@ApiResponse(code = 404, message = "Not Found"),
+			@ApiResponse(code = 413, message = "Request payload too large")
+	})
 	@ResponseBody
 	public ResponseEntity<?> checkRulesSyntax(@RequestBody(required = true) String payload) {
 
@@ -159,6 +176,14 @@ public class RulesValidationController {
 		value = "Create or update rules for the specified profile",
 		notes = "Create or update rules"
 	)
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Returns success boolean"),
+			@ApiResponse(code = 400, message = "Route parameters or json payload contain invalid data"),
+			@ApiResponse(code = 401, message = "HTTP header lacks valid OAuth2 token"),
+			@ApiResponse(code = 403, message = "HTTP header has valid OAuth2 token but lacks the appropriate scope to use this route"),
+			@ApiResponse(code = 404, message = "Not Found"),
+			@ApiResponse(code = 413, message = "Request payload too large")
+	})
 	@ResponseBody
 	public ResponseEntity<?> upsertRulesWithPut(
 		@ApiIgnore @RequestHeader(value = "Authorization", required = false) String authorizationHeader,
@@ -186,6 +211,14 @@ public class RulesValidationController {
 		value = "Create or update rules for the specified profile",
 		notes = "Create or update rules"
 	)
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Returns success boolean"),
+			@ApiResponse(code = 400, message = "Route parameters or json payload contain invalid data"),
+			@ApiResponse(code = 401, message = "HTTP header lacks valid OAuth2 token"),
+			@ApiResponse(code = 403, message = "HTTP header has valid OAuth2 token but lacks the appropriate scope to use this route"),
+			@ApiResponse(code = 404, message = "Not Found"),
+			@ApiResponse(code = 413, message = "Request payload too large")
+	})
 	@ResponseBody
 	public ResponseEntity<?> upsertRules(
 		@ApiIgnore @RequestHeader(value = "Authorization", required = false) String authorizationHeader,
@@ -197,7 +230,6 @@ public class RulesValidationController {
 		log.put(MessageHelper.CONST_METHOD, MessageHelper.METHOD_UPSERTRULES);
 
 		try {
-
 			// First, check the profile ID
 			Pattern p = Pattern.compile(profileRegex);
 			if (!p.matcher(profile).matches())
@@ -251,6 +283,13 @@ public class RulesValidationController {
 		value = "Get saved rules for the specified profile",
 		notes = "Get saved rules"
 	)
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Returns rulset"),
+			@ApiResponse(code = 400, message = "Route parameters or json payload contain invalid data"),
+			@ApiResponse(code = 401, message = "HTTP header lacks valid OAuth2 token"),
+			@ApiResponse(code = 403, message = "HTTP header has valid OAuth2 token but lacks the appropriate scope to use this route"),
+			@ApiResponse(code = 404, message = "Not Found"),
+	})
 	@ResponseBody
 	public ResponseEntity<?> getRules(
 		@ApiIgnore @RequestHeader(value = "Authorization", required = false) String authorizationHeader,
@@ -293,7 +332,15 @@ public class RulesValidationController {
 		produces = MediaType.APPLICATION_JSON_VALUE,
 		consumes = MediaType.TEXT_PLAIN_VALUE
 	)
-	@ApiOperation(value = "Validate HL7 message", notes = "Valides an HL7 message using JSON rules.")
+	@ApiOperation(value = "Validate HL7 message", notes = "Validates an HL7 message using JSON rules.")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Returns rulset"),
+			@ApiResponse(code = 400, message = "Route parameters or json payload contain invalid data"),
+			@ApiResponse(code = 401, message = "HTTP header lacks valid OAuth2 token"),
+			@ApiResponse(code = 403, message = "HTTP header has valid OAuth2 token but lacks the appropriate scope to use this route"),
+			@ApiResponse(code = 404, message = "Not Found"),
+			@ApiResponse(code = 413, message = "Request payload too large")
+	})
 	@ResponseBody
 	public ResponseEntity<?> validate(
 		@ApiIgnore @RequestHeader(value = "Authorization", required = false) String authorizationHeader,
