@@ -15,6 +15,8 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,6 +69,13 @@ public class HL7Controller {
 	private TemplateHelper templateHelper;
 
 	@RequestMapping(method = RequestMethod.GET)
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "OK"),
+			@ApiResponse(code = 400, message = "Route parameters or json payload contain invalid data"),
+			@ApiResponse(code = 401, message = "HTTP header lacks valid OAuth2 token"),
+			@ApiResponse(code = 403, message = "HTTP header has valid OAuth2 token but lacks the appropriate scope to use this route"),
+			@ApiResponse(code = 404, message = "Not Found"),
+	})
 	@ResponseBody
 	public ResponseEntity<?> index() throws IOException {
 		ObjectMapper mapper = new ObjectMapper();
@@ -95,6 +104,14 @@ public class HL7Controller {
 		value = "Transform HL7 to JSON",
 		notes = "Transforms an HL7 message to JSON object."
 	)
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Returns json transformation of provided HL7 data"),
+			@ApiResponse(code = 400, message = "Route parameters or json payload contain invalid data"),
+			@ApiResponse(code = 401, message = "HTTP header lacks valid OAuth2 token"),
+			@ApiResponse(code = 403, message = "HTTP header has valid OAuth2 token but lacks the appropriate scope to use this route"),
+			@ApiResponse(code = 404, message = "Not Found"),
+			@ApiResponse(code = 413, message = "Request payload too large")
+	})
 	@ResponseBody
 	public ResponseEntity<?> transformHL7toJSON(
 		@ApiIgnore @RequestHeader(value = "Authorization", required = false) String authorizationHeader,
@@ -121,6 +138,14 @@ public class HL7Controller {
 		value = "Transform HL7 to JSON",
 		notes = "Transforms an HL7 message to JSON object using a profile."
 	)
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Returns json transformation of provided HL7 data"),
+			@ApiResponse(code = 400, message = "Route parameters or json payload contain invalid data"),
+			@ApiResponse(code = 401, message = "HTTP header lacks valid OAuth2 token"),
+			@ApiResponse(code = 403, message = "HTTP header has valid OAuth2 token but lacks the appropriate scope to use this route"),
+			@ApiResponse(code = 404, message = "Not Found"),
+			@ApiResponse(code = 413, message = "Request payload too large")
+	})
 	@ResponseBody
 	public ResponseEntity<?> transformHL7toJSON(
 		@ApiIgnore @RequestHeader(value = "Authorization", required = false) String authorizationHeader,
@@ -169,6 +194,14 @@ public class HL7Controller {
 		value = "Get case identifier",
 		notes = "Get case identifier"
 	)
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Returns json containing case identifier and its segments"),
+			@ApiResponse(code = 400, message = "Route parameters or json payload contain invalid data"),
+			@ApiResponse(code = 401, message = "HTTP header lacks valid OAuth2 token"),
+			@ApiResponse(code = 403, message = "HTTP header has valid OAuth2 token but lacks the appropriate scope to use this route"),
+			@ApiResponse(code = 404, message = "Not Found"),
+			@ApiResponse(code = 413, message = "Request payload too large")
+	})
 	@ResponseBody
 	public ResponseEntity<?> getCaseIdentifier(
 		@RequestBody(required = true) String message,
@@ -200,6 +233,14 @@ public class HL7Controller {
 		value = "Get message hash",
 		notes = "Get message hash"
 	)
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Returns hash for provided message"),
+			@ApiResponse(code = 400, message = "Route parameters or json payload contain invalid data"),
+			@ApiResponse(code = 401, message = "HTTP header lacks valid OAuth2 token"),
+			@ApiResponse(code = 403, message = "HTTP header has valid OAuth2 token but lacks the appropriate scope to use this route"),
+			@ApiResponse(code = 404, message = "Not Found"),
+			@ApiResponse(code = 413, message = "Request payload too large")
+	})
 	@ResponseBody
 	public ResponseEntity<?> getMessageHash(@RequestBody(required = true) String message) {
 		ObjectMapper mapper = new ObjectMapper();
@@ -231,6 +272,14 @@ public class HL7Controller {
 		value = "Transform HL7 to XML",
 		notes = "Transforms an HL7 message to XML document."
 	)
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Returns XML transformation of provided HL7 data"),
+			@ApiResponse(code = 400, message = "Route parameters or json payload contain invalid data"),
+			@ApiResponse(code = 401, message = "HTTP header lacks valid OAuth2 token"),
+			@ApiResponse(code = 403, message = "HTTP header has valid OAuth2 token but lacks the appropriate scope to use this route"),
+			@ApiResponse(code = 404, message = "Not Found"),
+			@ApiResponse(code = 413, message = "Request payload too large")
+	})
 	@ResponseBody
 	public ResponseEntity<?> transformHL7toXML(
 		@RequestBody(required = true) String message
@@ -291,6 +340,13 @@ public class HL7Controller {
 		value = "Generate random HL7 message",
 		notes = "Generate random HL7 message."
 	)
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Returns generated HL7 message"),
+			@ApiResponse(code = 400, message = "Route parameters or json payload contain invalid data"),
+			@ApiResponse(code = 401, message = "HTTP header lacks valid OAuth2 token"),
+			@ApiResponse(code = 403, message = "HTTP header has valid OAuth2 token but lacks the appropriate scope to use this route"),
+			@ApiResponse(code = 404, message = "Not Found"),
+	})
 	@ResponseBody
 	public ResponseEntity<?> generate() {
 		Map<String, Object> log = new HashMap<>();
