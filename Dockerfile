@@ -34,6 +34,9 @@ COPY --from=builder /usr/src/app/target/fdns-ms-hl7-utils-*.jar /app.jar
 # pull latest
 RUN apk update && apk upgrade --no-cache
 
+# tomcat tmp
+RUN chown -R 1001:0 /tmp
+
 # don't run as root user
 RUN chown 1001:0 /app.jar
 RUN chmod g+rwx /app.jar
